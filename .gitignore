@@ -1,0 +1,17 @@
+env/
+venv/
+.venv/
+
+__pycache__/
+*.pyc
+*.pyo
+
+.streamlit/secrets.toml
+
+donnees_ventes_etudiants.csv
+
+.DS_Store
+Thumbs.db
+
+.vscode/
+.idea/
