@@ -5,23 +5,37 @@ répartition par catégorie/région, top clients, profil démographique,
 évolution mensuelle, carte des ventes par État, prévisions à 6 mois et
 export CSV.
 
+**Équipe** — Alpha Oumar Diallo, Rokhaya Beye, Abdourahmane Ndiaye,
+Mourtalla Guye, Serigne Saliou Mbacké
+
 ## 1. Installation
 
 ```bash
+git clone https://github.com/Alpha-vsc/Atlas-Commerce-dashboard.git
+cd Atlas-Commerce-dashboard
 pip install -r requirements.txt
 ```
 
+> ⚠️ Le fichier de données (`ventes_enriched.csv`, ~55 Mo) est suivi
+> avec **Git LFS**. Installe-le avant de cloner pour récupérer le
+> vrai fichier (sinon tu n'auras qu'un pointeur texte) :
+> ```bash
+> git lfs install
+> ```
+> Si tu as cloné avant d'avoir installé LFS, rattrape avec :
+> ```bash
+> git lfs pull
+> ```
+
 ## 2. Données
 
-Deux fichiers sont fournis :
+Le dépôt contient déjà `ventes_enriched.csv`, généré à partir du jeu
+de données complet du cours (`donnees_ventes_etudiants.csv`,
+286 392 lignes) via `prepare_data_real.py`. **Rien à faire de plus**
+pour lancer l'app — les données sont prêtes.
 
-- **`ventes_enriched.csv`** — un jeu de données de démo (3 000 lignes,
-  échantillon) déjà prêt à l'emploi. Il permet de lancer l'app
-  immédiatement pour tester / présenter.
-- **`prepare_data_real.py`** — le script à lancer **une fois** sur ton
-  vrai fichier `donnees_ventes_etudiants.csv` (85 Mo, 286 392 lignes)
-  pour générer le `ventes_enriched.csv` complet avec toutes les
-  colonnes attendues par `app.py` :
+Si vous devez régénérer ce fichier (nouvelles données, colonnes
+modifiées...), le script original est fourni :
 
 ```bash
 python prepare_data_real.py donnees_ventes_etudiants.csv ventes_enriched.csv
@@ -38,27 +52,23 @@ Cela va :
 - retirer les colonnes sensibles (SSN, e-mail, téléphone...) qui ne
   sont pas nécessaires au dashboard
 
-Remplace ensuite le `ventes_enriched.csv` de démo par celui généré à
-partir du fichier complet (même nom de fichier, `app.py` n'a rien à
-changer).
-
 ## 3. Lancer l'app
 
 ```bash
 streamlit run app.py
 ```
 
-## 4. Personnalisation avant la présentation
+## 4. Personnalisation
 
 Tout en haut de `app.py` :
 
 ```python
-TEAM_MEMBERS = ["Étudiant 1", "Étudiant 2", "Étudiant 3", "Étudiant 4"]
+TEAM_MEMBERS = ["Alpha Oumar Diallo", "Rokhaya Beye", "Abdourahmane Ndiaye", "Mourtalla Guye", "Serigne Saliou Mbacké"]
 CLIENT_NAME = "Atlas Commerce Inc."
 ```
 
-Remplace par les vrais noms de l'équipe et, si besoin, un nom de
-client fictif pour la mise en scène "rapport commandé par un client".
+Ces valeurs alimentent automatiquement l'en-tête et le pied de page
+du dashboard.
 
 ## 5. Notes techniques
 
@@ -79,8 +89,9 @@ client fictif pour la mise en scène "rapport commandé par un client".
 .
 ├── app.py                  # L'application Streamlit
 ├── prepare_data_real.py    # Script de préparation des données réelles
-├── ventes_enriched.csv     # Données prêtes à l'emploi (démo/sample)
+├── ventes_enriched.csv     # Données complètes (286 392 lignes, suivi via Git LFS)
 ├── requirements.txt
+├── .gitignore
 ├── .streamlit/config.toml  # Thème sombre (fond, couleur d'accent...)
 └── README.md
 ```
